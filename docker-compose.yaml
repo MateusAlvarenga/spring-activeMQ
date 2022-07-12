@@ -4,24 +4,28 @@ services:
   producer:
     build:
       context: "./producer"
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     image: "producer:prod"
     container_name: "producer"
+    ports:
+      - "8081:8080"
     networks: 
       - mqNetwork
   
   consumer:
     build:
       context: "./consumer"
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     image: "consumer:prod"
     container_name: "consumer"
+    ports:
+      - "8082:8080"
     networks: 
       - mqNetwork
 
   activemq:
     image: rmohr/activemq
-    container_name: "rmohr/activemq"
+    container_name: "activemq"
     ports:
       - "61616:61616"
       - "8161:8161"
