@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  producer:
+    build:
+      context: "./producer"
+      dockerfile: Dockerfile.prod
+    image: "producer:prod"
+    container_name: "producer"
+    networks: 
+      - mqNetwork
+  
+  consumer:
+    build:
+      context: "./consumer"
+      dockerfile: Dockerfile.prod
+    image: "consumer:prod"
+    container_name: "consumer"
+    networks: 
+      - mqNetwork
+
+  activemq:
+    image: rmohr/activemq
+    container_name: "rmohr/activemq"
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    networks: 
+      - mqNetwork
+
+networks:
+  mqNetwork:
+    driver: bridge
