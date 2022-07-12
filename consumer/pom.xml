@@ -10,11 +10,10 @@
     <groupId>alvarenga.mateus</groupId>
     <artifactId>consumer</artifactId>
 
-    <packaging>war</packaging>
     <name>consumer</name>
     <description>consumer</description>
     <properties>
-        <java.version>11</java.version>
+        <start-class>alvarenga.mateus.consumer.ConsumerApplication</start-class>
     </properties>
     <dependencies>
         <dependency>

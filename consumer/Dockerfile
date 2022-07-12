@@ -1,7 +1,23 @@
-FROM openjdk:latest
+FROM maven:3.8.5-openjdk-11 AS maven_build
 
-WORKDIR /app
+COPY pom.xml /tmp/
 
-COPY target/consumer-2.7.1.war  /app/consumer.war
+COPY src /tmp/src/
 
-ENTRYPOINT ["java","-jar","/consumer.war"]
+WORKDIR /tmp/
+
+RUN mvn package
+
+#pull base image
+
+FROM openjdk
+
+#expose port 8080
+EXPOSE 8080
+
+#default command
+CMD java -jar /data/consumer-2.7.1.jar
+
+#copy hello world to docker image from builder image
+
+COPY --from=maven_build /tmp/target/consumer-2.7.1.jar /data/consumer-2.7.1.jar
