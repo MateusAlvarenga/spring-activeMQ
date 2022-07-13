@@ -1,5 +1,6 @@
 version: '3'
 
+name: "spring-activemq"
 services:
   producer:
     build:
@@ -26,6 +27,8 @@ services:
   activemq:
     image: rmohr/activemq
     container_name: "activemq"
+    expose:
+      - "61616"
     ports:
       - "61616:61616"
       - "8161:8161"
