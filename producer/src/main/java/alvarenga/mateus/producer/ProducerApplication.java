@@ -44,5 +44,4 @@ public class ProducerApplication {
         log.info("ProducerApplication:main");
         SpringApplication.run(ProducerApplication.class, args);
     }
-
 }
