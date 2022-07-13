@@ -1,8 +1,11 @@
 package alvarenga.mateus.consumer;
 
 import lombok.extern.apachecommons.CommonsLog;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -13,14 +16,20 @@ import java.time.Instant;
 @CommonsLog
 @EnableScheduling
 public class ConsumerApplication {
+    @Value("${activemq.broker.url}")
+    private String brokerUrl;
 
     public static void main(String[] args) {
         log.info("ConsumerApplication:main");
         SpringApplication.run(ConsumerApplication.class, args);
     }
 
-    @Scheduled(fixedDelay = 3000, initialDelay = 10000)
-    public void schedule() {
-         log.info("ConsumerApplication: schedule :" + Timestamp.from(Instant.now()));
+    @Bean
+    public ActiveMQConnectionFactory activeMQConnectionFactory() {
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
+        activeMQConnectionFactory.setBrokerURL(brokerUrl);
+        activeMQConnectionFactory.setUserName("admin");
+        activeMQConnectionFactory.setPassword("admin");
+        return activeMQConnectionFactory;
     }
 }

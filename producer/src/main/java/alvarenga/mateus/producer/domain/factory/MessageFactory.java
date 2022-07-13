@@ -13,7 +13,7 @@ public class MessageFactory {
     public static Message createMessage() {
         Message message = new Message();
         message.setRandomNumber(new Random().nextInt(100));
-        message.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        message.setCreatedAt(String.valueOf(new Timestamp(System.currentTimeMillis())));
         return message;
     }
 

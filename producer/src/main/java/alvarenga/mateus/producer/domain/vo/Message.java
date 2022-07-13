@@ -12,5 +12,5 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Message {
     public Integer randomNumber;
-    public Timestamp createdAt;
+    public String createdAt;
 }
