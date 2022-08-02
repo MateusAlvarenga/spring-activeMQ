@@ -1,6 +1,5 @@
 package alvarenga.mateus.producer;
 
-
 import lombok.extern.apachecommons.CommonsLog;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -19,7 +18,13 @@ import javax.jms.Queue;
 public class ProducerApplication {
 
     @Value("${activemq.broker.url}")
-    private String brokerUrl;
+    private String BROKER_URL;
+
+    @Value("${activemq.broker.username}")
+    private String BROKER_USERNAME;
+
+    @Value("${activemq.broker.password}")
+    private String BROKER_PASSWORD;
 
     @Bean
     public Queue queue() {
@@ -29,9 +34,9 @@ public class ProducerApplication {
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL(brokerUrl);
-        activeMQConnectionFactory.setUserName("admin");
-        activeMQConnectionFactory.setPassword("admin");
+        activeMQConnectionFactory.setBrokerURL(BROKER_URL);
+        activeMQConnectionFactory.setUserName(BROKER_USERNAME);
+        activeMQConnectionFactory.setPassword(BROKER_PASSWORD);
         return activeMQConnectionFactory;
     }
 
