@@ -6,10 +6,10 @@ COPY src /tmp/src/
 
 WORKDIR /tmp/
 
+#package
 RUN mvn package
 
 #pull base image
-
 FROM openjdk
 
 #expose port 8080
@@ -18,6 +18,5 @@ EXPOSE 8080
 #default command
 CMD java -jar /data/producer-2.7.1.jar
 
-#copy hello world to docker image from builder image
-
+#copy app to docker image from builder image
 COPY --from=maven_build /tmp/target/producer-2.7.1.jar /data/producer-2.7.1.jar
