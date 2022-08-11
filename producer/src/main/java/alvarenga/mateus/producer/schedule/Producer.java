@@ -23,8 +23,8 @@ public class Producer {
     @Scheduled(fixedDelay = 3000, initialDelay = 10000)
     @SneakyThrows
     public void produce() {
-        log.info("ProducerApplication: schedule produce :" + Timestamp.from(Instant.now()));
         String message = MessageFactory.createMessageAsJSON();
+        log.info("ProducerApplication: produced message :" + message);
         jmsTemplate.convertAndSend(queue, message);
     }
 }

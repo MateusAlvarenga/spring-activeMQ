@@ -12,6 +12,8 @@ services:
       - "8081:8080"
     networks: 
       - mqNetwork
+    volumes:
+      - ./producer:/app
   
   consumer:
     build:
@@ -23,6 +25,8 @@ services:
       - "8082:8080"
     networks: 
       - mqNetwork
+    volumes:
+      - ./consumer:/app
 
   activemq:
     image: rmohr/activemq

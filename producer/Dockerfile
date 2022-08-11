@@ -1,22 +1,9 @@
-FROM maven:3.8.5-openjdk-11 AS maven_build
+FROM maven:3.8.6-eclipse-temurin-8-alpine
 
-COPY pom.xml /tmp/
+WORKDIR /app
 
-COPY src /tmp/src/
+COPY . .
 
-WORKDIR /tmp/
-
-#package
-RUN mvn package
-
-#pull base image
-FROM openjdk
-
-#expose port 8080
 EXPOSE 8080
 
-#default command
-CMD java -jar /data/producer-2.7.1.jar
-
-#copy app to docker image from builder image
-COPY --from=maven_build /tmp/target/producer-2.7.1.jar /data/producer-2.7.1.jar
+ENTRYPOINT [ "mvn", "spring-boot:run" ]
